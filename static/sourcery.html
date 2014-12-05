@@ -6,10 +6,21 @@
     <script type="text/javascript" src="src/main.js" defer></script>
   </head>
   <body>
-    <div class="left">
+    <header class="header">
       <input type="text" placeholder="www.google.com" class="url-input" id="url"/>
-      <pre id="markup"/>
+    </header>
+    <div class="content">
+      <div class="left">
+        <table id="counts" class="counts">
+          <tr data-keep="true">
+            <th>tag</th>
+            <th>count</th>
+          </tr>
+        </table>
+      </div>
+      <div class="right">
+        <pre id="markup"/>
+      </div>
     </div>
-    <div class="right"></div>
   </body>
 </html>

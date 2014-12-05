@@ -1,9 +1,31 @@
 (function() {
   var endTagRegex = /\s|\/?&gt;/
 
+  // create the markup for the tag counts table
+  var tagCountMarkup = function(tagCounts) {
+    var counts = [];
+    for (var tag in tagCounts) {
+      if (tagCounts.hasOwnProperty(tag)) {
+        var anchor = '<a href="javascript:void(0);" data-tag-type="' + tag + '">' + tag + '</a>';
+        counts.push('<tr><td>' + anchor + '</td><td>' + tagCounts[tag] + '</td></tr>');
+      }
+    }
+    return counts;
+  }
+
+  // handle clicks on the tags
+  var handleTagClick = function(tag) {
+    var content = $('#markup');
+    // remove any existing highlighting
+    content.find('.highlight').removeClass('highlight');
+
+    content.find('.' + tag).addClass('highlight');
+  };
+
+  // fetch the markup from the server and render it
   var fetchPage = function(url) {
-    // call server to fetch page html
     $.ajax('http://localhost:4242/fetch?url=' + url).success(function(data) {
+      // wrap each line in a <span> so we can style them
       var lines = data.lines;
       var wrappedLines = [];
       for (var i = 0; i < lines.length; ++i) {
@@ -19,6 +41,12 @@
         }
       }
       $('#markup').html(wrappedLines.join('\n'));
+
+      // remove any existing counts
+      $('#counts tr[data-keep!="true"]').remove();
+
+      // display the counts
+      $('#counts tr:last').after(tagCountMarkup(data.tags));
     })
   };
 
@@ -30,6 +58,12 @@
         fetchPage(url);
       }
     });
+
+    // handle clicks on the tags
+    $('#counts').click(function(event) {
+      var tag = $(event.target).data('tag-type');
+      handleTagClick(tag);
+    })
   })
 })()
 

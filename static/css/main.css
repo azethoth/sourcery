@@ -1,18 +1,62 @@
-body {
+body * {
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
   box-sizing: border-box;
 }
 
+.header {
+  height: 40px;
+  padding: 8px;
+}
+
+.content {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
 .left {
-  width: 50%;
-  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 50%;
+  bottom: 0;
   overflow: scroll;
+  border-right: 1px solid grey
 }
 
 .url-input {
+  display: block;
+  width: 400px;
+  margin: 0 auto;
+}
+
+.counts {
   width: 100%;
+  border-spacing: 0;
+}
+
+.counts th {
+  text-align: left;
+  border-bottom: 1px solid grey;
+}
+
+.counts td, .counts th {
+  padding: 4px;
 }
 
 .right {
-  width: 50%;
-  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+  overflow: scroll;
 }
+
+.highlight {
+  background-color: yellow;
+}
+
