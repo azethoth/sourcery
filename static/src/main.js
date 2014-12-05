@@ -47,6 +47,8 @@
 
       // display the counts
       $('#counts tr:last').after(tagCountMarkup(data.tags));
+    }).error(function() {
+      alert('Sorry, we ran into an error');
     })
   };
 
