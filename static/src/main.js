@@ -4,8 +4,7 @@
   var fetchPage = function(url) {
     // call server to fetch page html
     $.ajax('http://localhost:4242/fetch?url=' + url).success(function(data) {
-      var html = data.html;
-      var lines = html.split('\n');
+      var lines = data.lines;
       var wrappedLines = [];
       for (var i = 0; i < lines.length; ++i) {
         var line = lines[i];

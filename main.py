@@ -13,9 +13,21 @@ def fetch():
   if url and not url.startswith('http'):
     url = 'http://' + url
 
+  # get the html and parse it
   html = requests.get(url).content
   soup = BeautifulSoup(html)
-  response = make_response(json.dumps({'html': cgi.escape(soup.prettify())}), 200)
+
+  # count the number of tags
+  tags = {}
+  for tag in soup.findAll():
+    count = tags.get(tag.name, 0)
+    tags[tag.name] = count + 1
+
+  # convert it into a prettified string and then into a list
+  html_string = cgi.escape(soup.prettify())
+  html_list = html_string.split('\n')
+
+  response = make_response(json.dumps({'lines': html_list, 'tags': tags}), 200)
   response.headers['Content-type'] = 'application/json'
   return response
 
