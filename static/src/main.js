@@ -24,7 +24,7 @@
 
   // fetch the markup from the server and render it
   var fetchPage = function(url) {
-    $.ajax('http://localhost:4242/fetch?url=' + url).success(function(data) {
+    $.ajax('https://peaceful-garden-3713.herokuapp.com/fetch?url=' + url).success(function(data) {
       // wrap each line in a <span> so we can style them
       var lines = data.lines;
       var wrappedLines = [];
