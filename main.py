@@ -1,5 +1,7 @@
 import requests
 import json
+import cgi
+from bs4 import BeautifulSoup
 from flask import Flask
 from flask import request, make_response
 
@@ -12,7 +14,8 @@ def fetch():
     url = 'http://' + url
 
   html = requests.get(url).content
-  response = make_response(json.dumps({'data': html}), 200)
+  soup = BeautifulSoup(html)
+  response = make_response(json.dumps({'html': cgi.escape(soup.prettify())}), 200)
   response.headers['Content-type'] = 'application/json'
   return response
 
